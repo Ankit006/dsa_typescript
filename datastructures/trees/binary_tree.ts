@@ -46,33 +46,90 @@ class BinarySearchTree {
     }
   }
 
-  find(element:treeElementType):TreeNode|number{
-    if(this.root !== null){
-      let current:TreeNode = this.root;
-      while(true){
-        if(element === current.value){
-           return current;
-        }else{
-          if(element > current.value){
-            if(current.right !== null){
+  find(element: treeElementType): TreeNode | number {
+    if (this.root !== null) {
+      let current: TreeNode = this.root;
+      while (true) {
+        if (element === current.value) {
+          return current;
+        } else {
+          if (element > current.value) {
+            if (current.right !== null) {
               current = current.right;
-            }else{
+            } else {
               return -1;
             }
-          }else{
-            if(current.left !== null){
-              current = current.left
-            }else{
+          } else {
+            if (current.left !== null) {
+              current = current.left;
+            } else {
               return -1;
             }
           }
         }
       }
-    }else{
+    } else {
       return -1;
     }
   }
 
-  
+  BFS() {
+    if (this.root !== null) {
+      const queue: TreeNode[] = [this.root];
+      const data: treeElementType[] = [];
+
+      while (queue.length > 0) {
+        if (typeof queue[0] !== "undefined") {
+          const node = queue.shift();
+          if (node !== undefined) {
+            data.push(node.value);
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+          }
+        }
+      }
+      return data;
+    }
+  }
+
+  DFSPreOrder() {
+    if (this.root !== null) {
+      const values: treeElementType[] = [];
+      function traverse(nodeData: TreeNode) {
+        values.push(nodeData.value);
+        if (nodeData.left !== null) traverse(nodeData.left);
+        if (nodeData.right !== null) traverse(nodeData.right);
+      }
+      traverse(this.root);
+      return values;
+    }
+  }
+
+  DFSPostOrder() {
+    if (this.root !== null) {
+      const values: treeElementType[] = [];
+
+      function traverse(nodeData: TreeNode) {
+        if (nodeData.left) traverse(nodeData.left);
+        if (nodeData.right) traverse(nodeData.right);
+        values.push(nodeData.value);
+      }
+      traverse(this.root);
+      return values;
+    }
+  }
+  DFSInOrder() {
+    if (this.root !== null) {
+      const values: treeElementType[] = [];
+
+      function traverse(nodeData: TreeNode) {
+        if (nodeData.left) traverse(nodeData.left);
+        values.push(nodeData.value);
+        if (nodeData.right) traverse(nodeData.right);
+      }
+      traverse(this.root);
+      return values;
+    }
+  }
 }
 

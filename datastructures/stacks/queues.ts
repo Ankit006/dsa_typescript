@@ -1,6 +1,6 @@
 type queueType = string|number|boolean|object;
 
-class QueueNode{
+export class QueueNode{
      element:queueType
      next:QueueNode|null
      constructor(element:queueType){
@@ -10,7 +10,7 @@ class QueueNode{
 }
 
 
-class Queue{
+export class Queue{
     head:QueueNode
     tail:QueueNode
     size:number
